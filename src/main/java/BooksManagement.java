@@ -2,9 +2,14 @@ import java.util.*;
 
 public class BooksManagement {
     public static Scanner scanner = new Scanner(System.in);
-    private static ArrayList<Book> library1 = new ArrayList<>();
+    private static ArrayList<Book> library = new ArrayList<>();
     public static void addNew(){
-        library1.add(new Book(askForTitle(),askForAuthor(), library1.size()+1)
+        library.add(new Book(askForTitle(),askForAuthor(), library.size()+1)
+        );
+
+    }
+    public static void addNew(String bookTitle, String bookAuthor){
+        library.add(new Book(bookTitle,bookAuthor, library.size()+1)
         );
 
     }
@@ -18,10 +23,10 @@ public class BooksManagement {
     }
     public static String getBookName(int bookId){
         String name;
-        name=(library1.get(bookId).title);
+        name=(library.get(bookId).title);
         return name;
     }
     public static int getLibrarySize(){
-        return library1.size();
+        return library.size();
     }
 }

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class BooksManagementTest {
 
     @Test
-    void addNew() {
+    void addNewBookToLibraryArrayList() {
+         BooksManagement.addNew("default title", "default author");
+        assertEquals(1,BooksManagement.getLibrarySize());
     }
 }
