@@ -4,8 +4,8 @@ public class Menu {
     private static int selectedOption;
 
     private static void printMenu(){
-        System.out.println("1. Dodaj książkę do zbioru");
-        System.out.println("2. ");
+        System.out.println("1. Dodaj książkę do księgozbioru");
+        System.out.println("2. Wyszukaj frazę");
         System.out.println("3. ");
         System.out.println("4. ");
         System.out.println("5. ");
