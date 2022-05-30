@@ -10,7 +10,11 @@ public class Book {
         this.author = author;
         this.id = id;
     }
-
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+        this.id = BooksManagement.getLibrarySize()+1;
+    }
 
 
 }

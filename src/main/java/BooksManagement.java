@@ -23,4 +23,7 @@ public class BooksManagement {
         name=(library1.get(bookId).title);
         return name;
     }
+    public static int getLibrarySize(){
+        return library1.size();
+    }
 }
