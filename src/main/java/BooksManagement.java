@@ -10,13 +10,11 @@ public class BooksManagement {
     }
     private static String askForTitle(){
         System.out.println("Podaj tytuł książki:");
-        String bookTitle = scanner.nextLine();
-        return bookTitle;
+        return scanner.nextLine();
     }
     private static String askForAuthor(){
         System.out.println("Podaj Autora");
-        String bookAuthor = scanner.nextLine();
-        return bookAuthor;
+        return scanner.nextLine();
     }
     public static String getBookName(int bookId){
         String name;
