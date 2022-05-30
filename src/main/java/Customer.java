@@ -8,12 +8,12 @@ public class Customer {
     {
         this.name=name;
         this.surname=surname;
-        this.id=CustomerManagement.getCustomersSize()+1;
+        this.id=CustomerManagement.getCustomersSize();
     }
     public Customer()
     {
         this.name="default name";
         this.surname="default surname";
-        this.id=CustomerManagement.getCustomersSize()+1;
+        this.id=CustomerManagement.getCustomersSize();
     }
 }

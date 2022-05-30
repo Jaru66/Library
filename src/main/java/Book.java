@@ -3,7 +3,7 @@ public class Book {
     String title;
     String author;
     int id;
-    boolean isAvaliable;
+    boolean isAvaliable = true;
 
     public Book(String title, String author, int id) {
         this.title = title;

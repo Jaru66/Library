@@ -4,7 +4,7 @@ public class BooksManagement {
     public static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Book> library = new ArrayList<>();
     public static void addNew(){
-        library.add(new Book(askForTitle(),askForAuthor(), library.size()+1)
+        library.add(new Book(askForTitle(),askForAuthor(), library.size())
         );
 
     }
@@ -29,4 +29,9 @@ public class BooksManagement {
     public static int getLibrarySize(){
         return library.size();
     }
+
+    public static Book  borrowBook(int bookId){
+        return library.get(bookId);
+    }
+
 }

@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomerManagementTest {
 
     @Test
-    void addNew() {
-        String name= "john";
-        String surname = "johnson";
-        Customer testCustomer = new Customer(name,surname);
+    void addNewCustomerToArrayList() {
+        CustomerManagement.addNew("name","surname");
+        assertEquals(1,CustomerManagement.getCustomersSize());
 
 
     }
