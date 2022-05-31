@@ -9,15 +9,15 @@ public class BooksManagement {
 
     }
     public static void addNew(String bookTitle, String bookAuthor){
-        library.add(new Book(bookTitle,bookAuthor, library.size()+1)
+        library.add(new Book(bookTitle,bookAuthor, library.size())
         );
 
     }
-    private static String askForTitle(){
+    public static String askForTitle(){
         System.out.println("Podaj tytuł książki:");
         return scanner.nextLine();
     }
-    private static String askForAuthor(){
+    public static String askForAuthor(){
         System.out.println("Podaj Autora");
         return scanner.nextLine();
     }

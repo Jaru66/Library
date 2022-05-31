@@ -14,10 +14,10 @@ public class CustomerManagement {
     public static void addNew(String name, String surname,int iD){
         customers.add(new Customer(name,surname,iD));
     }
-    private static String askForName(){
+    public static String askForName(){
         System.out.println("Podaj imię nowego użytkownika");return scanner.nextLine();
     }
-    private static String askForSurname(){
+    public static String askForSurname(){
         System.out.println("Podaj nazwisko nowego użytkownika");return scanner.nextLine();
     }
     public static int getCustomersSize(){return customers.size();}
