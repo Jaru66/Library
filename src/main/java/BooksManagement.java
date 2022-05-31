@@ -30,7 +30,7 @@ public class BooksManagement {
         return library.size();
     }
 
-    public static Book  borrowBook(int bookId){
+    public static Book getBook(int bookId){
         return library.get(bookId);
     }
 

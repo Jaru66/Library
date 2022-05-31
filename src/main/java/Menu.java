@@ -19,7 +19,7 @@ public class Menu {
                     break;
                     case 2:CustomerManagement.addNew("s","s");
                     break;
-                    case 3:CustomerManagement.addBookToCustomerArrayList(0,0);
+                    case 3:CustomerManagement.addBookToCustomerArrayList(CustomerManagement.getCustomer(1),0);
                     break;
                     case 4:
                         System.out.println(BooksManagement.getBookName(0));

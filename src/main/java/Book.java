@@ -15,6 +15,11 @@ public class Book {
         this.author = author;
         this.id = BooksManagement.getLibrarySize()+1;
     }
+    public Book() {
+        this.title = "title";
+        this.author = "author";
+        this.id = BooksManagement.getLibrarySize()+1;
+    }
 
 
 }
