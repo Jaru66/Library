@@ -25,4 +25,10 @@ public class Customer {
     public void addBook(Book book){
         this.borrowedBooks.add(book);
     }
+    public void printBorrowedBooks()
+    {
+        for(int i=0;i<this.borrowedBooks.size();i++) {
+            System.out.println(this.borrowedBooks.get(i).id+this.borrowedBooks.get(i).title);
+        }
+    }
 }
