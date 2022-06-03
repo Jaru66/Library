@@ -25,10 +25,21 @@ public class Customer {
     public void addBook(Book book){
         this.borrowedBooks.add(book);
     }
+    public void deleteBook(Book book){
+        this.borrowedBooks.remove(book);
+    }
     public void printBorrowedBooks()
     {
+        if(this.borrowedBooks.size()==0){
+            System.out.println(this.name+" nie ma żadnej książki.");
+        }else
         for(int i=0;i<this.borrowedBooks.size();) {
-            System.out.println(this.borrowedBooks.get(i).id+this.borrowedBooks.get(i).title);i++;
+
+            System.out.println(this.borrowedBooks.indexOf(this.borrowedBooks.get(i))+this.borrowedBooks.get(i).title);i++;
         }
+    }
+    public int getlibraryBookId(int borrowedBookId){
+        int libraryBookId = this.borrowedBooks.get(borrowedBookId).id;
+        return libraryBookId;
     }
 }

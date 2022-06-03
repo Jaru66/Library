@@ -10,6 +10,7 @@ public class Menu {
         System.out.println("4. Wyswietl liste ksiazek");
         System.out.println("5. Wyswietl liste userow");
         System.out.println("6. Wyswietl ksiazki usera");
+        System.out.println("7. Usun ksiazke usera");
     }
     public static void selectMenu(){
         printMenu();
@@ -25,8 +26,14 @@ public class Menu {
                     break;
                     case 4:
                         for(int i=0;i<BooksManagement.getLibrarySize();) {
-                            System.out.println(BooksManagement.getBook(i).id+" "+BooksManagement.getBookName(i));
-                            i++;
+                            if(!BooksManagement.getBook(i).isAvaliable){
+                                System.out.println("book not avaliable");
+                                i++;
+                            }else{
+                                System.out.println(BooksManagement.getBook(i).id+" "+BooksManagement.getBookName(i));
+                                i++;
+                            }
+
                         }
                     break;
                     case 5:
@@ -37,6 +44,17 @@ public class Menu {
                     case 6:
                         System.out.println("Wpisz ID usera ktorego ksiazki chcesz wyswietlic");
                          CustomerManagement.getCustomer(scanner.nextInt()).printBorrowedBooks();
+                    break;
+                case 7:
+                    System.out.println("Wpisz Id usera ktorego ksiazke chcesz usunac:");
+                    //wyswietl userow
+                    for (int o=0;o<CustomerManagement.getCustomersSize();o++){
+                        System.out.println(CustomerManagement.getCustomer(o).id+" "+CustomerManagement.getCustomerName(o));
+                    }
+                    //wyswietl ksiazki tego usera
+                    int customerID= scanner.nextInt();
+                    CustomerManagement.getCustomer(customerID).printBorrowedBooks();
+                    CustomerManagement.deleteBookFromCustomerArrayList(CustomerManagement.getCustomer(customerID),scanner.nextInt());
                     break;
             }
             Menu.selectMenu();

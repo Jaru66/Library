@@ -24,11 +24,19 @@ public class CustomerManagement {
 
     public static void addBookToCustomerArrayList(Customer customer,int bookID){
         customer.addBook(BooksManagement.getBook(bookID));
+        BooksManagement.getBook(bookID).setUnavaliable();
     }
+    public static void deleteBookFromCustomerArrayList(Customer customer,int bookID)
+    {
+        BooksManagement.getBook(customer.getlibraryBookId(bookID)).setAvaliable();
+        customer.deleteBook(customer.borrowedBooks.get(bookID));
+     }
     public static Customer getCustomer (int id){
         return customers.get(id);
     }
     public static String getCustomerName(int id){
         return customers.get(id).name;
     }
+    public static void clearCustomerList()
+    {customers.clear();}
 }

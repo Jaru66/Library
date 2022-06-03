@@ -1,12 +1,14 @@
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerManagementTest {
 
-    @BeforeAll
-    public static void start() throws Exception {
+    @BeforeEach
+    void start() throws Exception {
+        CustomerManagement.clearCustomerList();
         CustomerManagement.addNew("name", "surname", 0);
     }
 

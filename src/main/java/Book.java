@@ -20,6 +20,8 @@ public class Book {
         this.author = "author";
         this.id = BooksManagement.getLibrarySize()+1;
     }
+    public void setUnavaliable(){this.isAvaliable=false;}
+    public void setAvaliable(){this.isAvaliable=true;}
 
 
 }

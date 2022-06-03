@@ -34,4 +34,9 @@ public class BooksManagement {
         return library.get(bookId);
     }
 
+    public static void clearLibrary()
+    {
+        library.clear();
+    }
+
 }
