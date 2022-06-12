@@ -12,7 +12,8 @@ public class CustomerManagement {
         customers.add(new Customer(name,surname));
     }
     public static void addNew(String name, String surname,int iD){
-        customers.add(new Customer(name,surname,iD));
+        if(iD!=1){
+        customers.add(new Customer(name,surname,iD));}
     }
     public static String askForName(){
 

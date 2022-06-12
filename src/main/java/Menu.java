@@ -11,6 +11,12 @@ public class Menu {
         System.out.println("5. Wyswietl liste userow");
         System.out.println("6. Wyswietl ksiazki usera");
         System.out.println("7. Usun ksiazke usera");
+
+        System.out.println("8. Select user");
+        System.out.println("9. Borrow book");
+        System.out.println("10. Return book");
+        System.out.println("11. Lost/Broke book");
+        System.out.println("");
     }
     public static void selectMenu(){
         printMenu();
