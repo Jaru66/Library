@@ -15,10 +15,26 @@ public class CustomerManagement {
         customers.add(new Customer(name,surname,iD));
     }
     public static String askForName(){
-        System.out.println("Podaj imię nowego użytkownika");return scanner.nextLine();
+
+        System.out.println("Podaj imię nowego użytkownika");
+        String name = scanner.nextLine();
+
+        if (name.isEmpty()) {
+            System.out.println("To pole nie może być puste.");
+            return askForName();
+        }else
+        return name;
+
     }
     public static String askForSurname(){
-        System.out.println("Podaj nazwisko nowego użytkownika");return scanner.nextLine();
+        System.out.println("Podaj nazwisko nowego użytkownika");
+        String surname = scanner.nextLine();
+
+        if (surname.isEmpty()) {
+            System.out.println("To pole nie może być puste.");
+            return askForSurname();
+        }
+        return surname;
     }
     public static int getCustomersSize(){return customers.size();}
 

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.*;
 public class Book {
     String title;
     String author;
