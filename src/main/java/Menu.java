@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 public class Menu {
     public static Scanner scanner = new Scanner(System.in);
@@ -12,13 +14,13 @@ public class Menu {
         System.out.println("6. Wyswietl ksiazki usera");
         System.out.println("7. Usun ksiazke usera");
 
-        System.out.println("8. Select user");
+        System.out.println("8. upload books");
         System.out.println("9. Borrow book");
         System.out.println("10. Return book");
         System.out.println("11. Lost/Broke book");
         System.out.println("");
     }
-    public static void selectMenu(){
+    public static void selectMenu() throws SQLException, IOException {
         printMenu();
         selectedOption = scanner.nextInt();
         while(true){
@@ -62,6 +64,7 @@ public class Menu {
                     CustomerManagement.getCustomer(customerID).printBorrowedBooks();
                     CustomerManagement.deleteBookFromCustomerArrayList(CustomerManagement.getCustomer(customerID),scanner.nextInt());
                     break;
+                case 8:Database.uploadBookList();
             }
             Menu.selectMenu();
         }

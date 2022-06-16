@@ -13,8 +13,8 @@ public class BooksManagement {
         );
 
     }
-    public static void addNew(int id, String bookTitle, String bookAuthor){
-        library.add(new Book(bookTitle,bookAuthor, id)
+    public static void addNew(int id, String bookTitle, String bookAuthor, Boolean isAvaliable){
+        library.add(new Book(bookTitle,bookAuthor, id, isAvaliable)
         );
 
     }
