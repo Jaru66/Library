@@ -13,6 +13,11 @@ public class BooksManagement {
         );
 
     }
+    public static void addNew(int id, String bookTitle, String bookAuthor){
+        library.add(new Book(bookTitle,bookAuthor, id)
+        );
+
+    }
     public static String askForTitle(){
         System.out.println("Podaj tytuł książki:");
         return scanner.nextLine();
