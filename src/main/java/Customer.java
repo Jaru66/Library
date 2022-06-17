@@ -42,4 +42,12 @@ public class Customer {
         int libraryBookId = this.borrowedBooks.get(borrowedBookId).id;
         return libraryBookId;
     }
+    public String getBorrowedBooksToString()
+    {
+        String BorrowedBooksString = "";
+        for (int i =0; i<this.borrowedBooks.size(); i++)
+        {
+            BorrowedBooksString = BorrowedBooksString.concat(Integer.toString(getlibraryBookId(this.borrowedBooks.get(i).id)));
+        }return BorrowedBooksString;
+    }
 }
