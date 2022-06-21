@@ -24,7 +24,7 @@ public class Database {
         return null;
     }
     //at program launch
-    public static void downloadBookList()throws IOException, SQLException {
+    public static void downloadBookListFromDatabase()throws IOException, SQLException {
         try {
             connect();
             statement = connection.createStatement();
@@ -45,31 +45,62 @@ public class Database {
     }
 
     //at program close
-    public static void uploadBookList()throws IOException, SQLException{
+    public static void uploadBookListToDatabase()throws IOException, SQLException{
         try {
             connect();
             statement = connection.createStatement();
             String sql = null;
             for(int i=0;i<BooksManagement.getLibrarySize();i++) {
                 sql = "INSERT INTO `books` (`id`,`title`,`author`,`isAvaliable`) VALUES ('"+BooksManagement.getBook(i).id+ "','"+BooksManagement.getBook(i).title+"','"+BooksManagement.getBook(i).author+"','"+return1WhileTrue(BooksManagement.getBook(i).isAvaliable)+"');";
-                if(bookExists(i)){
+                if(bookExistsInDatabase(i)){
                     if(BooksManagement.getBook(i).isAvaliable!=getBookAvailability(i)){
-                        System.out.println("jest niedostepna");sql = "UPDATE books SET isAvaliable = '"+return1WhileTrue(BooksManagement.getBook(i).isAvaliable)+"' WHERE id = '"+i+"';";statement.executeUpdate(sql);}
-                }else statement.executeUpdate(sql);
+                        System.out.println("jest niedostepna");sql = "UPDATE books SET isAvaliable = '"+return1WhileTrue(BooksManagement.getBook(i).isAvaliable)+"' WHERE id = '"+i+"';";connect(); statement = connection.createStatement();statement.executeUpdate(sql);}
+                }else {connect(); statement = connection.createStatement();  statement.executeUpdate(sql);}
             }
         } catch (Exception e){e.printStackTrace();}finally {
             connection.close();
         }
     }
 
-    public static void downloadCustomerList(){    }
-    public static void uploadCustomerList(){    }
+    public static void downloadCustomerList() throws SQLException {  try {
+        connect();
+        statement = connection.createStatement();
+        String sql = "SELECT * FROM customers ;";
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()) {
+            CustomerManagement.addNew(rs.getString("name"),rs.getString("surname"),rs.getInt("id"));
+        }
+    }catch (Exception e) {e.printStackTrace();}finally {
+        connection.close();
+    }  }
+
+    public static void uploadCustomerList() throws SQLException {  try {
+        connect();
+        statement = connection.createStatement();
+        String sql = null;
+        for(int i=0;i<CustomerManagement.getCustomersSize();i++) {
+            System.out.println("stalo sie");
+            sql = "INSERT INTO `customers` (`id`,`name`,`surname`,`borrowedBooksID`) VALUES ('"+CustomerManagement.getCustomer(i).id+ "','"+CustomerManagement.getCustomer(i).name+"','"+CustomerManagement.getCustomer(i).surname+"','"+CustomerManagement.getCustomer(i).getBorrowedBooksToString()+"');";
+            if(customerExistsInDatabase(i)){
+                if(CustomerManagement.getCustomer(i).getBorrowedBooksToString().equals(getUserBooksListFromDatabase(i))){
+                    System.out.println("lista sie zgadza");
+            }else {uploadCustomerBookList(i);}
+              }else { connect(); statement = connection.createStatement(); statement.executeUpdate(sql);}
+        }
+    } catch (Exception e){e.printStackTrace();}finally {
+        connection.close();
+    }  }
 
     public static void downloadCustomerBookList(Customer customer){    }
-    public static void uploadCustomerBookList(Customer customer){    }
+    public static void uploadCustomerBookList(int customerId) throws SQLException { try {
+        connect();
+        statement = connection.createStatement();
+        String sql = "UPDATE customers SET borrowedBooksID = '"+CustomerManagement.getCustomer(customerId).getBorrowedBooksToString()+"' WHERE id = '"+customerId+"';";statement.executeUpdate(sql);}
+    catch (Exception e) {        e.printStackTrace();    }     finally {        connection.close();        }
+    }
 
     public static int return1WhileTrue(boolean bool){        if (bool) {return 1;}        else return 0;    }
-    public static boolean bookExists(int id) throws SQLException {
+    public static boolean bookExistsInDatabase(int id) throws SQLException {
         try {
             connect();
             statement = connection.createStatement();
@@ -82,11 +113,24 @@ public class Database {
         }
         return false;
     }
-    public static boolean getBookAvailability(int    id) throws SQLException {
+    public static boolean customerExistsInDatabase(int CustomerId) throws SQLException {
         try {
             connect();
             statement = connection.createStatement();
-            String sql = "SELECT isAvaliable FROM books where id= "+id+";";
+            String sql = "SELECT id FROM customers where id= "+CustomerId+";";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {return true;
+            }
+        }catch (Exception e) {e.printStackTrace();}finally {
+            connection.close();
+        }
+        return false;
+    }
+    public static boolean getBookAvailability(int    BookId) throws SQLException {
+        try {
+            connect();
+            statement = connection.createStatement();
+            String sql = "SELECT isAvaliable FROM books where id= "+BookId+";";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 return rs.getBoolean("isAvaliable");
@@ -95,5 +139,18 @@ public class Database {
             connection.close();
         }
         return false;
+    }
+    public static String getUserBooksListFromDatabase(int UserId) throws SQLException {
+        try {
+            connect();
+            statement = connection.createStatement();
+            String sql = "SELECT borrowedBooksID FROM customers where id= "+UserId+";";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                return rs.getString("borrowedBooksID");
+            }
+        }catch (Exception e) {e.printStackTrace();}finally {
+            connection.close();
+        }return "";
     }
 }
