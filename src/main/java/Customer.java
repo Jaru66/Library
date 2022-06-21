@@ -47,7 +47,7 @@ public class Customer {
         String BorrowedBooksString = "";
         for (int i =0; i<this.borrowedBooks.size(); i++)
         {
-            BorrowedBooksString = BorrowedBooksString.concat(Integer.toString(getlibraryBookId(this.borrowedBooks.get(i).id)));
+            BorrowedBooksString = BorrowedBooksString.concat(Integer.toString(getlibraryBookId(i)));
         }return BorrowedBooksString;
     }
 }
