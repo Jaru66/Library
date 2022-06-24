@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.sql.*;
+import java.util.Objects;
 
 public class Database {
     public static Connection connection;
@@ -23,7 +24,7 @@ public class Database {
         }
         return null;
     }
-    //at program launch
+
     public static void downloadBookListFromDatabase()throws IOException, SQLException {
         try {
             connect();
@@ -43,8 +44,6 @@ public class Database {
             connection.close();
         }
     }
-
-    //at program close
     public static void uploadBookListToDatabase()throws IOException, SQLException{
         try {
             connect();
@@ -61,8 +60,8 @@ public class Database {
             connection.close();
         }
     }
-
-    public static void downloadCustomerList() throws SQLException {  try {
+    public static void downloadCustomerList() throws SQLException {
+        try {
         connect();
         statement = connection.createStatement();
         String sql = "SELECT * FROM customers ;";
@@ -70,11 +69,11 @@ public class Database {
         while (rs.next()) {
             CustomerManagement.addNew(rs.getString("name"),rs.getString("surname"),rs.getInt("id"));
         }
-    }catch (Exception e) {e.printStackTrace();}finally {
+        }catch (Exception e) {e.printStackTrace();}finally {
         connection.close();
     }  }
-
-    public static void uploadCustomerList() throws SQLException {  try {
+    public static void uploadCustomerList() throws SQLException {
+        try {
         connect();
         statement = connection.createStatement();
         String sql = null;
@@ -90,15 +89,35 @@ public class Database {
     } catch (Exception e){e.printStackTrace();}finally {
         connection.close();
     }  }
+    public static void downloadCustomerBookList(int customerId)throws SQLException {
+        try {
+        connect();
+        statement = connection.createStatement();
+        String sql = "SELECT borrowedBooksID FROM customers WHERE id ="+customerId+" ;";
+        ResultSet rs = statement.executeQuery(sql);
+        String[] bookIdAfterSplit=null;
+        while (rs.next()) {
+            bookIdAfterSplit = rs.getString("borrowedBooksID").split(",");
+        }
+        for(int i = 0; i< Objects.requireNonNull(bookIdAfterSplit).length; i++){
+            if(bookIdAfterSplit[i].equals("")){}
+            else
+                {
+                 CustomerManagement.addBookToCustomerArrayList(CustomerManagement.getCustomer(customerId),Integer.parseInt(bookIdAfterSplit[i]));
+                }
+        }
 
-    public static void downloadCustomerBookList(Customer customer){    }
-    public static void uploadCustomerBookList(int customerId) throws SQLException { try {
+
+    }catch (Exception e) {e.printStackTrace();}finally {
+        connection.close();
+    }  }
+    public static void uploadCustomerBookList(int customerId) throws SQLException {
+        try {
         connect();
         statement = connection.createStatement();
         String sql = "UPDATE customers SET borrowedBooksID = '"+CustomerManagement.getCustomer(customerId).getBorrowedBooksToString()+"' WHERE id = '"+customerId+"';";statement.executeUpdate(sql);}
     catch (Exception e) {        e.printStackTrace();    }     finally {        connection.close();        }
     }
-
     public static int return1WhileTrue(boolean bool){        if (bool) {return 1;}        else return 0;    }
     public static boolean bookExistsInDatabase(int id) throws SQLException {
         try {
@@ -151,6 +170,25 @@ public class Database {
             }
         }catch (Exception e) {e.printStackTrace();}finally {
             connection.close();
-        }return "";
+        }return null;
+    }
+    public static void downloadFromDatabase() throws SQLException, IOException {
+        System.out.println("Downloading books from database");
+        downloadBookListFromDatabase();
+
+        System.out.println("Downloading customers from database");
+        downloadCustomerList();
+
+       for(int i=0;i<CustomerManagement.getCustomersSize();i++) {
+           downloadCustomerBookList(i);
+       }
+        System.out.println("Downloading customer's books from database");
+    }
+    public static void uploadToDatabase() throws SQLException, IOException {
+        uploadBookListToDatabase();
+        uploadCustomerList();
+        for(int i=0;i<CustomerManagement.getCustomersSize();i++) {
+            uploadCustomerBookList(i);
+        }
     }
 }
