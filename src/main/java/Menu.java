@@ -16,7 +16,7 @@ public class Menu {
 
         System.out.println("8. upload books");
         System.out.println("9. Borrow book");
-        System.out.println("10. Return book");
+        System.out.println("10. Upload all");
         System.out.println("11. Lost/Broke book");
         System.out.println("");
     }
@@ -30,7 +30,8 @@ public class Menu {
                     case 2:CustomerManagement.addNew(CustomerManagement.askForName(),CustomerManagement.askForSurname());
                     break;
                     case 3:
-                        System.out.println("Customer,bookID");CustomerManagement.addBookToCustomerArrayList(CustomerManagement.getCustomer(scanner.nextInt()),scanner.nextInt());
+                       try{ System.out.println("Customer,bookID");CustomerManagement.addBookToCustomerArrayList(CustomerManagement.getCustomer(scanner.nextInt()),scanner.nextInt());}catch (IndexOutOfBoundsException e){e.printStackTrace();
+                           System.out.println("nie ma usera o takim ID"); selectMenu();}
                     break;
                     case 4:
                         for(int i=0;i<BooksManagement.getLibrarySize();) {
@@ -64,7 +65,9 @@ public class Menu {
                     CustomerManagement.getCustomer(customerID).printBorrowedBooks();
                     CustomerManagement.deleteBookFromCustomerArrayList(CustomerManagement.getCustomer(customerID),scanner.nextInt());
                     break;
-                case 8:Database.uploadBookList();
+                case 8:;
+                case 9:;
+                case 10:Database.uploadToDatabase();
             }
             Menu.selectMenu();
         }
