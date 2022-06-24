@@ -12,7 +12,7 @@ public class CustomerManagement {
         customers.add(new Customer(name,surname));}
 
     public static void addNew(String name, String surname,int iD){
-        if(iD!=1){customers.add(new Customer(name,surname,iD));}}
+        customers.add(new Customer(name,surname,iD));}
 
 
     public static String askForName(){
@@ -37,20 +37,21 @@ public class CustomerManagement {
     public static int getCustomersSize(){return customers.size();}
 
     public static void addBookToCustomerArrayList(Customer customer,int bookID){
+        while(BooksManagement.getBook(bookID).isAvaliable){
         customer.addBook(BooksManagement.getBook(bookID));
         BooksManagement.getBook(bookID).setUnavaliable();}
+        System.out.println("Książka jest niedostępna!");}
 
-    public static void deleteBookFromCustomerArrayList(Customer customer,int bookID)
-    {
+    public static void deleteBookFromCustomerArrayList(Customer customer,int bookID)    {
         BooksManagement.getBook(customer.getlibraryBookId(bookID)).setAvaliable();
         customer.deleteBook(customer.borrowedBooks.get(bookID));
      }
     public static Customer getCustomer (int id){
-        return customers.get(id);
+            return customers.get(id);
     }
     public static String getCustomerName(int id){
         return customers.get(id).name;
     }
-    public static void clearCustomerList()
-    {customers.clear();}
+    public static void clearCustomerList() {
+        customers.clear();}
 }
